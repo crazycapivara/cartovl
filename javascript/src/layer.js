@@ -7,20 +7,20 @@ const makePopupContent = function(feature) {
 };
 
 export function addMapboxSource(data, props) {
-  let map = this;
+  const map = this;
   if (props.df) data = df2geojson(data, props);
 
   map.on("load", () => map.addSource(props.id, { type: "geojson", data: data }));
 }
 
 export function addMapboxLayer(style) {
-  let map = this;
+  const map = this;
   map.on("load", () => map.addLayer(style));
 }
 
 // TODO: Maybe rename to 'addCartoLayer'
 export function addLayer(data, props) {
-  let map = this;
+  const map = this;
   map.on("load", () => {
     if (props.df) {
       data = df2geojson(data, props);
@@ -35,7 +35,7 @@ export function addLayer(data, props) {
 }
 
 export function addExternalLayer(url, props) {
-  let map = this;
+  const map = this;
   fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -86,7 +86,7 @@ const makeLayer = function(map, source, props) {
     });
     const legendTitle = props.legend.title ? `<h1>${props.legend.title}</h1>` : "";
     const legendContent = legendTitle + `<ul>${items.join("\n")}</ul>`;
-    addBox.call(map, legendContent, props.legend.position);
+    addBox.call(map, legendContent, props.legend.position, props.legend.style);
     });
   }
 
